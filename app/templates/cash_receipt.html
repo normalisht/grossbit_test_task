@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чек об оплате</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header, .footer {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .content {
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>ООО "Grossbit"</h2>
+            <p>Добро пожаловать</p>
+        </div>
+        <div class="content">
+            <table>
+                <tr>
+                    <td>ККМ</td>
+                    <td>00075411</td>
+                    <td>#3969</td>
+                </tr>
+                <tr>
+                    <td>ИНН</td>
+                    <td>1087746942040</td>
+                </tr>
+                <tr>
+                    <td>ЭКЛЗ</td>
+                    <td>3851495566</td>
+                </tr>
+                <tr>
+                    <td>Дата и время</td>
+                    <td>{{ datetime }} СИС.</td>
+                </tr>
+                <tr>
+                    <td>Продавец</td>
+                    <td>АДМИ</td>
+                </tr>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.amount }}</td>
+                        <td>{{ item.cost }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="footer">
+            <p>ИТОГ</p>
+            <p>{{ total }}</p>
+            <p>НАЛИЧНЫМИ = {{ total }}</p>
+            <p>***********************</p>
+            <p>00003751# 059705</p>
+        </div>
+    </div>
+</body>
+</html
