@@ -10,6 +10,7 @@ import qrcode
 from django.conf import settings
 from django.http import FileResponse
 from django.shortcuts import render
+from rest_framework.exceptions import ParseError
 from rest_framework.viewsets import ViewSet
 
 from .models import Item
@@ -19,9 +20,11 @@ class CashMachineViewSet(ViewSet):
     DATETIME_FORMAT = '%d.%m.%Y %H:%M'
 
     def create(self, request):
-        template_data = self.get_template_data(
-            item_ids=request.data.get('items', [])
-        )
+        item_ids = request.data.get('items')
+        if not item_ids:
+            raise ParseError(detail='Items cant be empty')
+
+        template_data = self.get_template_data(item_ids=item_ids)
         template = render(
             request=request,
             template_name='cash_receipt.html',
@@ -42,12 +45,14 @@ class CashMachineViewSet(ViewSet):
 
         return FileResponse(
             qr_code,
-            as_attachment=True,
             filename='cash_receipt_qrcode.png'
         )
 
     def get_template_data(self, item_ids: list[int]) -> dict:
         items = Item.objects.filter(id__in=item_ids)
+        if not items:
+            raise ParseError(detail='No items with this id')
+
         items_count = Counter(item_ids)
 
         items_data = []
@@ -72,8 +77,8 @@ class CashMachineViewSet(ViewSet):
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
-            box_size=5,
-            border=1,
+            box_size=6,
+            border=2,
         )
         qr.add_data(link)
         qr.make(fit=True)

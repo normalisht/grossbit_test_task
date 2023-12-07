@@ -1,5 +1,4 @@
 import os
-import os
 import pathlib
 import platform
 import subprocess
@@ -110,7 +109,14 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Указать путь к файлу wkhtmltopdf.exe
+os_platform = platform.system()
+pdfkit_path = os.getenv('PDFKIT_PATH')
+if not pdfkit_path:
+    if os_platform == 'Windows':
+        pdfkit_path = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
+    else:
+        pdfkit_path = "/usr/bin/wkhtmltopdf"
+
 PDFKIT_CONFIG = pdfkit.configuration(
-    wkhtmltopdf=r'D:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+    wkhtmltopdf=pdfkit_path
 )
