@@ -57,12 +57,13 @@ pip install -r requirements.txt
 5. На основе файла `.env.example` необходимо создать `.env` файл.
 (Данные для POSTGRES необходимо указывать только при отключении режима 
 дебага)
+
 Для локальной проверки qr-кодов, необходимо указать в переменной SERVER_ADDR
 локальный адрес своего ПК, и подключиться с телефона и ПК к одной сети.
 Узнать локальный адрес ПК можно с помощью команды `ipconfig` на Windows и
 `ifconfig` на Linux
 
-5.1. ### В PDFKIT_PATH указать путь к файлу wkhtmltopdf
+#### В PDFKIT_PATH указать путь к файлу wkhtmltopdf
 
 [Как установить wkhtmltopdf](https://wkhtmltopdf.org/downloads.html)
 
