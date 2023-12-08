@@ -2,7 +2,7 @@
 
 ## Ссылка на проект
 
-https://losharik27.pythonanywhere.com/cache_machine/
+https://losharik27.pythonanywhere.com/
 
 ## Что реализовано
 
